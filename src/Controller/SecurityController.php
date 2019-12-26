@@ -33,8 +33,8 @@ class SecurityController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         {
             $user = $form->getData();
-            // $encoded = $this->encoder->encodePassword($user, $user->getPassword());
-            // $user->setPassword($encoded);
+            $encoded = $this->encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($encoded);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
