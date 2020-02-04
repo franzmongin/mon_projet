@@ -17,8 +17,9 @@ class HomeController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
         $fakeRepo = $this->getDoctrine()->getRepository(Fake::class);
-        $fakes = count($fakeRepo->findAll());
-        return $this->render('home/index.html.twig', ['fakes' => $fakes
+        $fakesCpt = count($fakeRepo->findAll());
+        $fakes =  $fakeRepo->findAll();
+        return $this->render('home/index.html.twig', ['fakesCpt' => $fakesCpt, 'fakes' => $fakes
         ]);
     }
 
@@ -35,9 +36,11 @@ class HomeController extends AbstractController
         $entityManager->persist($fake);
         $entityManager->flush();
 
-        $fakes = count($fakeRepo->findAll());
-
-        return $this->json(['message' => 'OK', 'fakes' => $fakes]);
+        $fakes = $fakeRepo->findAll();
+        $view =  $this->render('home/list.html.twig', ['fakes' => $fakes
+        ]);
+        dump($view);
+        return $this->json(['message' => 'OK', 'fakes' => $fakes, 'fake' => $fake, 'view' => $view]);
 
     }
     

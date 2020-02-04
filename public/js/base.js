@@ -5,7 +5,7 @@ $("#ajout-user").on("click", function(){
         type: "POST"
     })
         .done(function( data){
-            console.log(data.fakes);
-            $('#compteur').text('compteur :'+data.fakes)
+            console.log(data);
+            $("#divid").html(data.view.content);
         });
 });
