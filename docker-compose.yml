@@ -11,7 +11,7 @@ services:
     image: adminer
     restart: on-failure
     ports:
-      - 8080:8080
+      - 8090:8080
   nginx:
     image: nginx:1.15.3-alpine
     restart: on-failure
@@ -19,9 +19,13 @@ services:
       - './:/usr/src/app'
       - './docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro'
     ports:
-      - 80:80
+      - 8900:80
     depends_on:
       - php
+    links:
+      - php:php
+    networks:
+      - net
   php:
     build:
       context: .
@@ -30,3 +34,10 @@ services:
     env_file:
       - .env
     user: 1000:1000
+    volumes:
+      - './:/usr/src/app'
+    networks:
+      - net
+networks:
+  net:
+

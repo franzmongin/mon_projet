@@ -22,6 +22,10 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 
 WORKDIR /usr/src/app
 
-COPY . /usr/src/app
+#USER 1000:1000
+
+#COPY . /usr/src/app
+
+EXPOSE 9000
 
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
