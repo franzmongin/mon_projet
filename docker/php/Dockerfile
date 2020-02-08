@@ -25,6 +25,7 @@ WORKDIR /usr/src/app
 #USER 1000:1000
 
 #COPY . /usr/src/app
+#COPY . /usr/src/app
 
 EXPOSE 9000
 

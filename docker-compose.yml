@@ -1,17 +1,17 @@
 version:  '3.7'
 
 services:
-  mysql:
+  db:
+    container_name: db
     image: mysql:8.0
-    restart: on-failure
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: example
-  adminer:
-    image: adminer
-    restart: on-failure
+      MYSQL_DATABASE: dbtest
     ports:
-      - 8090:8080
+      - 3306:3306
+    networks:
+      - net
   nginx:
     image: nginx:1.15.3-alpine
     restart: on-failure
@@ -27,6 +27,7 @@ services:
     networks:
       - net
   php:
+    container_name: php
     build:
       context: .
       dockerfile: docker/php/Dockerfile
